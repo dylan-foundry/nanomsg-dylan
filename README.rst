@@ -5,3 +5,12 @@ These are Dylan bindings for the nanomsg library: https://github.com/250bpm/nano
 
 To build them, you will need to build and install the nanomsg library first. You will
 also need OpenDylan 2012.1 or later.
+
+TODO
+----
+
+* Move buffer-offset into ``io`` and get rid of the 2 copies in ``network`` as well.
+* Error handling.
+* Documentation.
+* Tests.
+* Convert to a library rather than a sample program.
