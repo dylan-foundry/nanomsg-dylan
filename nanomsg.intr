@@ -41,10 +41,10 @@ define function buffer-offset
            (the-buffer, primitive-repeated-slot-offset(the-buffer))))
 end function;
 
-define inline method sp-send (socket :: <integer>, data :: <buffer>, flags :: <integer>) => (res :: <integer>)
+define inline function sp-send (socket :: <integer>, data :: <buffer>, flags :: <integer>) => (res :: <integer>)
   %sp-send(socket, buffer-offset(data, 0), data.size, flags)
 end;
 
-define inline method sp-recv (socket :: <integer>, data :: <buffer>, flags :: <integer>) => (res :: <integer>)
+define inline function sp-recv (socket :: <integer>, data :: <buffer>, flags :: <integer>) => (res :: <integer>)
   %sp-recv(socket, buffer-offset(data, 0), data.size, flags);
 end;
