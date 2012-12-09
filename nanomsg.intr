@@ -28,7 +28,7 @@ define interface
 
 end interface;
 
-// Function for adding the base address of a <buffer>'s repeated slots
+// Function for adding the base address of the repeated slots of a <buffer>
 // to an offset and returning the result as a <machine-word>.  This is
 // necessary for passing <buffer> contents across the FFI.
 
