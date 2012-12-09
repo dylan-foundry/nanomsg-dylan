@@ -1,4 +1,7 @@
 module: nanomsg
+synopsis: generated bindings for the nanomsg library
+author: Bruce Mitchener, Jr.
+copyright: See LICENSE file in this distribution.
 
 define simple-C-mapped-subtype <C-buffer-offset> (<C-char*>)
   export-map <machine-word>, export-function: identity;
