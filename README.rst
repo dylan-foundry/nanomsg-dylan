@@ -12,3 +12,5 @@ TODO
 * Move buffer-offset into ``io`` and get rid of the 2 copies in ``network`` as well.
 * Error handling.
 * Documentation.
+* Do better with ``sp-setsockopt`` / ``sp-getsockopt``
+* Test out support for pubsub and surveyor patterns.
