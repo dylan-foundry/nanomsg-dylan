@@ -50,9 +50,16 @@ define module nanomsg
     $SP-SUB,
     $SP-REP,
     $SP-REQ,
+    $SP-SINK,
+    $SP-SOURCE,
+    $SP-PUSH,
+    $SP-PULL,
+    $SP-SURVEYOR,
+    $SP-RESPONDENT,
     $SP-SOL-SOCKET,
     $SP-SUBSCRIBE,
     $SP-UNSUBSCRIBE,
     $SP-RESEND-IVL,
+    $SP-DEADLINE,
     $SP-DONTWAIT;
 end module;
