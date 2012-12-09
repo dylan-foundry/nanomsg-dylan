@@ -13,7 +13,6 @@ end library;
 
 define module nanomsg
   use common-dylan, exclude: { format-to-string };
-  use format-out;
   use c-ffi;
   use dylan-direct-c-ffi;
   use streams;
