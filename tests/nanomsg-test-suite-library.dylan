@@ -15,7 +15,7 @@ define module nanomsg-test-suite
   use common-dylan, exclude: { format-to-string };
   use format;
   use nanomsg;
-  use streams, import { <buffer> };
+  use streams, import: { <buffer> };
   use testworks;
 
   export nanomsg-test-suite;
