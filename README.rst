@@ -12,4 +12,3 @@ TODO
 * Move buffer-offset into ``io`` and get rid of the 2 copies in ``network`` as well.
 * Error handling.
 * Documentation.
-* Tests.
