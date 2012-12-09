@@ -13,4 +13,3 @@ TODO
 * Error handling.
 * Documentation.
 * Tests.
-* Convert to a library rather than a sample program.
