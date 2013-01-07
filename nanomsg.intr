@@ -35,7 +35,8 @@ define interface
 
     rename: {
       "sp_recv" => %sp-recv,
-      "sp_send" => %sp-send
+      "sp_send" => %sp-send,
+      "sp_setsockopt" => %sp-setsockopt
     };
 
     function "sp_version",
@@ -70,4 +71,23 @@ end;
 
 define inline function sp-recv (socket :: <integer>, data :: <buffer>, flags :: <integer>) => (res :: <integer>)
   %sp-recv(socket, buffer-offset(data, 0), data.size, flags);
+end;
+
+define inline method sp-setsockopt (socket :: <integer>, level :: <integer>, option :: <integer>, value :: <integer>)
+  with-stack-structure (int :: <C-int*>)
+    pointer-value(int) := value;
+    let setsockopt-result =
+      %sp-setsockopt(socket, level, option, int, size-of(<C-int*>));
+    if (setsockopt-result < 0)
+      // Check error!
+    end;
+  end;
+end;
+
+define inline method sp-setsockopt (socket :: <integer>, level :: <integer>, option :: <integer>, data :: <string>)
+  let setsockopt-result =
+    %sp-setsockopt(socket, level, option, data, data.size);
+  if (setsockopt-result < 0)
+    // Check error!
+  end;
 end;
