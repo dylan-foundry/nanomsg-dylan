@@ -8,8 +8,30 @@ define simple-C-mapped-subtype <C-buffer-offset> (<C-char*>)
 end;
 
 define interface
-  #include "sp/sp.h",
+  #include {
+      "sp/sp.h",
+      "sp/fanin.h",
+      "sp/inproc.h",
+      "sp/pair.h",
+      "sp/reqrep.h",
+      "sp/survey.h",
+      "sp/fanout.h",
+      "sp/ipc.h",
+      "sp/pubsub.h",
+      "sp/tcp.h"
+    },
+
+    exclude: {
+      "SP_PAIR_ID",
+      "SP_PUBSUB_ID",
+      "SP_REQREP_ID",
+      "SP_FANIN_ID",
+      "SP_FANOUT_ID",
+      "SP_SURVEY_ID"
+    },
+
     equate: {"char *" => <c-string>},
+
     rename: {
       "sp_recv" => %sp-recv,
       "sp_send" => %sp-send
