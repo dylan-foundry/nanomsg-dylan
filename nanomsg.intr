@@ -22,6 +22,7 @@ define interface
     },
 
     exclude: {
+      "SP_HAUSNUMERO",
       "SP_PAIR_ID",
       "SP_PUBSUB_ID",
       "SP_REQREP_ID",

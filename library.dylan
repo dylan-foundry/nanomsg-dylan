@@ -38,7 +38,6 @@ define module nanomsg
     $SP-VERSION-MINOR,
     $SP-VERSION-PATCH,
     $SP-VERSION,
-    $SP-HAUSNUMERO,
     $ETERM,
     $EFSM,
     $AF-SP,
