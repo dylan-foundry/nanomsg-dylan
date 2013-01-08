@@ -11,6 +11,7 @@ define suite nanomsg-test-suite ()
   test req-rep-nanomsg-test;
   test fan-in-nanomsg-test;
   test fan-out-nanomsg-test;
+  test pubsub-nanomsg-test;
 end suite;
 
 define test init-nanomsg-test ()
@@ -215,3 +216,47 @@ define test fan-out-nanomsg-test ()
   check-equal("sp-term returns 0",
               sp-term(), 0);
 end test fan-out-nanomsg-test;
+
+define test pubsub-nanomsg-test ()
+  check-equal("sp-init returns 0",
+              sp-init(), 0);
+
+  let pub = sp-socket($AF-SP, $SP-PUB);
+  let sub1 = sp-socket($AF-SP, $SP-SUB);
+  check-equal("sp-errno after sub1 subscribes",
+              if (0 > sp-setsockopt(sub1, $SP-SUB, $SP-SUBSCRIBE, "")) sp-errno() else 0 end, 0);
+  let sub2 = sp-socket($AF-SP, $SP-SUB);
+  check-equal("sp-errno after sub2 subscribes",
+              if (~sp-setsockopt(sub2, $SP-SUB, $SP-SUBSCRIBE, "")) sp-errno() else 0 end, 0);
+
+  // Setup
+  check-equal("sp-errno after sp-bind(pub) is 0",
+              if (~sp-bind(pub, "inproc://a")) sp-errno() else 0 end, 0);
+  check-equal("sp-errno after sp-connect(sub1) is 0",
+              if (~sp-connect(sub1, "inproc://a")) sp-errno() else 0 end, 0);
+  check-equal("sp-errno after sp-connect(sub2) is 0",
+              if (~sp-connect(sub2, "inproc://a")) sp-errno() else 0 end, 0);
+
+  let data = make(<buffer>, size: 3);
+
+  // Test fan-out
+  check-equal("sp-send(pub) is 3",
+              sp-send(pub, as(<buffer>, "ABC"), 0), 3);
+  check-equal("sp-send(pub) is 3",
+              sp-send(pub, as(<buffer>, "DEF"), 0), 3);
+  check-equal("sp-recv(sub1) is 3",
+              sp-recv(sub1, data, 0), 3);
+  check-equal("sp-recv(sub2) is 3",
+              sp-recv(sub2, data, 0), 3);
+
+  // Tear down
+  check-equal("sp-errno after sp-close(pub) is 0",
+              if (~sp-close(pub)) sp-errno() else 0 end, 0);
+  check-equal("sp-errno after sp-close(sub1) is 0",
+              if (~sp-close(sub1)) sp-errno() else 0 end, 0);
+  check-equal("sp-errno after sp-close(sub2) is 0",
+              if (~sp-close(sub2)) sp-errno() else 0 end, 0);
+
+  check-equal("sp-term returns 0",
+              sp-term(), 0);
+end test pubsub-nanomsg-test;
