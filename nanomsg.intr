@@ -81,13 +81,15 @@ define inline method sp-setsockopt (socket :: <integer>, level :: <integer>, opt
     if (setsockopt-result < 0)
       // Check error!
     end;
+    setsockopt-result
   end;
 end;
 
-define inline method sp-setsockopt (socket :: <integer>, level :: <integer>, option :: <integer>, data :: <string>)
+define inline method sp-setsockopt (socket :: <integer>, level :: <integer>, option :: <integer>, data :: <byte-string>)
   let setsockopt-result =
-    %sp-setsockopt(socket, level, option, data, data.size);
+    %sp-setsockopt(socket, level, option, as(<c-string>, data), data.size);
   if (setsockopt-result < 0)
     // Check error!
   end;
+  setsockopt-result
 end;
