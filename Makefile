@@ -1,4 +1,4 @@
-MELANGE=melange 
+MELANGE=melange
 
 all: build
 
@@ -7,13 +7,15 @@ all: build
 nanomsg.dylan: nanomsg.intr
 	$(MELANGE) -Tc-ffi -Iext/nanomsg/include nanomsg.intr nanomsg.dylan
 
-#ext/nanomsg/libnanomsg.a:
-#	$(MAKE) -C ext/nanomsg
-
-build: nanomsg.dylan # ext/nanomsg/libnanomsg.a
+build: nanomsg.dylan
 	dylan-compiler -build nanomsg
 
-test: nanomsg.dylan # ext/nanomsg/libnanomsg.a
+test: nanomsg.dylan
 	dylan-compiler -build nanomsg-test-suite-app
 	_build/bin/nanomsg-test-suite-app
 
+clean:
+	rm nanomsg.dylan
+	rm -rf _build/bin/nanomsg*
+	rm -rf _build/lib/*nanomsg*
+	rm -rf _build/build/nanomsg*
