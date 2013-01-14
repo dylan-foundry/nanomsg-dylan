@@ -30,8 +30,12 @@ define module nanomsg
     sp-bind,
     sp-connect,
     sp-shutdown,
+    sp-allocmsg,
+    sp-freemsg,
     sp-send,
-    sp-recv;
+    sp-sendmsg,
+    sp-recv,
+    sp-recvmsg;
 
   export
     $SP-VERSION-MAJOR,

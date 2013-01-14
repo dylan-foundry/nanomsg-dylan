@@ -14,3 +14,4 @@ TODO
 * Documentation.
 * Do better with ``sp-getsockopt``
 * Test out support for the surveyor pattern.
+* Do better with the zero-copy routines.
