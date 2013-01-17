@@ -21,6 +21,28 @@ define interface
       "sp/tcp.h"
     },
 
+    import: all,
+
+    // Pick up the definitions that aren't defined by nanomsg itself.
+    import: {
+      "EADDRINUSE",
+      "EADDRNOTAVAIL",
+      "EAFNOSUPPORT",
+      "EAGAIN",
+      "EBADF",
+      "EFAULT",
+      "EINTR",
+      "EINVAL",
+      "EMFILE",
+      "ENAMETOOLONG",
+      "ENODEV",
+      "ENOMEM",
+      "ENOPROTOOPT",
+      "ENOTSUP",
+      "EPROTONOSUPPORT",
+      "ETIMEDOUT"
+    },
+
     exclude: {
       "SP_HAUSNUMERO",
       "SP_PAIR_ID",
