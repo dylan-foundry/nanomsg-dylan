@@ -7,6 +7,24 @@ define simple-C-mapped-subtype <C-buffer-offset> (<C-char*>)
   export-map <machine-word>, export-function: identity;
 end;
 
+define class <sp-error> (<error>)
+  constant slot sp-error-status :: <integer>, required-init-keyword: status:;
+  constant slot sp-error-message :: <string>, init-keyword: message:, init-value: "Unknown error";
+end;
+
+define C-mapped-subtype <sp-status> (<C-int>)
+  import-map <integer>,
+    import-function:
+      method (result :: <integer>) => (checked :: <integer>)
+        if ((result < 0) & (result ~= $EAGAIN))
+          let errno = sp-errno();
+          error(make(<sp-error>, status: errno, message: sp-strerror(errno)));
+        else
+          result;
+        end;
+      end;
+end;
+
 define interface
   #include {
       "sp/sp.h",
@@ -66,11 +84,49 @@ define interface
       output-argument: 2,
       output-argument: 3;
 
-    function "sp_send",
-      map-argument: { 2 => <C-buffer-offset> };
+    function "sp_bind",
+      map-result: <sp-status>;
+
+    function "sp_close",
+      map-result: <sp-status>;
+
+    function "sp_connect",
+      map-result: <sp-status>;
+
+    function "sp_freemsg",
+      map-result: <sp-status>;
+
+    function "sp_getsockopt",
+      map-result: <sp-status>;
+
+    function "sp_init",
+      map-result: <sp-status>;
 
     function "sp_recv",
-      map-argument: { 2 => <C-buffer-offset> };
+      map-argument: { 2 => <C-buffer-offset> },
+      map-result: <sp-status>;
+
+    function "sp_recvmsg",
+      map-result: <sp-status>;
+
+    function "sp_send",
+      map-argument: { 2 => <C-buffer-offset> },
+      map-result: <sp-status>;
+
+    function "sp_sendmsg",
+      map-result: <sp-status>;
+
+    function "sp_setsockopt",
+      map-result: <sp-status>;
+
+    function "sp_shutdown",
+      map-result: <sp-status>;
+
+    function "sp_socket",
+      map-result: <sp-status>;
+
+    function "sp_term",
+      map-result: <sp-status>;
 
 end interface;
 
@@ -98,20 +154,10 @@ end;
 define inline method sp-setsockopt (socket :: <integer>, level :: <integer>, option :: <integer>, value :: <integer>)
   with-stack-structure (int :: <C-int*>)
     pointer-value(int) := value;
-    let setsockopt-result =
-      %sp-setsockopt(socket, level, option, int, size-of(<C-int*>));
-    if (setsockopt-result < 0)
-      // Check error!
-    end;
-    setsockopt-result
+    %sp-setsockopt(socket, level, option, int, size-of(<C-int*>));
   end;
 end;
 
 define inline method sp-setsockopt (socket :: <integer>, level :: <integer>, option :: <integer>, data :: <byte-string>)
-  let setsockopt-result =
-    %sp-setsockopt(socket, level, option, as(<c-string>, data), data.size);
-  if (setsockopt-result < 0)
-    // Check error!
-  end;
-  setsockopt-result
+  %sp-setsockopt(socket, level, option, as(<c-string>, data), data.size);
 end;

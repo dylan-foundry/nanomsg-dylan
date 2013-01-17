@@ -38,6 +38,11 @@ define module nanomsg
     sp-recvmsg;
 
   export
+    <sp-error>,
+    sp-error-status,
+    sp-error-message;
+
+  export
     $SP-VERSION-MAJOR,
     $SP-VERSION-MINOR,
     $SP-VERSION-PATCH,
