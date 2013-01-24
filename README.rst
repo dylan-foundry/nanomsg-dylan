@@ -10,8 +10,8 @@ TODO
 ----
 
 * Move buffer-offset into ``io`` and get rid of the 2 copies in ``network`` as well.
-* Error handling for ``sp-allocmsg``.
+* Error handling for ``nn-allocmsg``.
 * Documentation.
-* Do better with ``sp-getsockopt``
+* Do better with ``nn-getsockopt``
 * Test out support for the surveyor pattern.
 * Do better with the zero-copy routines.

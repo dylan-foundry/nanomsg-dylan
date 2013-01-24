@@ -7,18 +7,18 @@ define simple-C-mapped-subtype <C-buffer-offset> (<C-void*>)
   export-map <machine-word>, export-function: identity;
 end;
 
-define class <sp-error> (<error>)
-  constant slot sp-error-status :: <integer>, required-init-keyword: status:;
-  constant slot sp-error-message :: <string>, init-keyword: message:, init-value: "Unknown error";
+define class <nn-error> (<error>)
+  constant slot nn-error-status :: <integer>, required-init-keyword: status:;
+  constant slot nn-error-message :: <string>, init-keyword: message:, init-value: "Unknown error";
 end;
 
-define C-mapped-subtype <sp-status> (<C-int>)
+define C-mapped-subtype <nn-status> (<C-int>)
   import-map <integer>,
     import-function:
       method (result :: <integer>) => (checked :: <integer>)
         if ((result < 0) & (result ~= $EAGAIN))
-          let errno = sp-errno();
-          error(make(<sp-error>, status: errno, message: sp-strerror(errno)));
+          let errno = nn-errno();
+          error(make(<nn-error>, status: errno, message: nn-strerror(errno)));
         else
           result;
         end;
@@ -27,16 +27,16 @@ end;
 
 define interface
   #include {
-      "sp/sp.h",
-      "sp/fanin.h",
-      "sp/inproc.h",
-      "sp/pair.h",
-      "sp/reqrep.h",
-      "sp/survey.h",
-      "sp/fanout.h",
-      "sp/ipc.h",
-      "sp/pubsub.h",
-      "sp/tcp.h"
+      "nanomsg/nn.h",
+      "nanomsg/fanin.h",
+      "nanomsg/inproc.h",
+      "nanomsg/pair.h",
+      "nanomsg/reqrep.h",
+      "nanomsg/survey.h",
+      "nanomsg/fanout.h",
+      "nanomsg/ipc.h",
+      "nanomsg/pubsub.h",
+      "nanomsg/tcp.h"
     },
 
     import: all,
@@ -62,71 +62,71 @@ define interface
     },
 
     exclude: {
-      "SP_HAUSNUMERO",
-      "SP_PAIR_ID",
-      "SP_PUBSUB_ID",
-      "SP_REQREP_ID",
-      "SP_FANIN_ID",
-      "SP_FANOUT_ID",
-      "SP_SURVEY_ID"
+      "NN_HAUSNUMERO",
+      "NN_PAIR_ID",
+      "NN_PUBSUB_ID",
+      "NN_REQREP_ID",
+      "NN_FANIN_ID",
+      "NN_FANOUT_ID",
+      "NN_SURVEY_ID"
     },
 
     equate: {"char *" => <c-string>},
 
     rename: {
-      "sp_recv" => %sp-recv,
-      "sp_send" => %sp-send,
-      "sp_setsockopt" => %sp-setsockopt
+      "nn_recv" => %nn-recv,
+      "nn_send" => %nn-send,
+      "nn_setsockopt" => %nn-setsockopt
     };
 
-    function "sp_version",
+    function "nn_version",
       output-argument: 1,
       output-argument: 2,
       output-argument: 3;
 
-    function "sp_bind",
-      map-result: <sp-status>;
+    function "nn_bind",
+      map-result: <nn-status>;
 
-    function "sp_close",
-      map-result: <sp-status>;
+    function "nn_close",
+      map-result: <nn-status>;
 
-    function "sp_connect",
-      map-result: <sp-status>;
+    function "nn_connect",
+      map-result: <nn-status>;
 
-    function "sp_freemsg",
-      map-result: <sp-status>;
+    function "nn_freemsg",
+      map-result: <nn-status>;
 
-    function "sp_getsockopt",
-      map-result: <sp-status>;
+    function "nn_getsockopt",
+      map-result: <nn-status>;
 
-    function "sp_init",
-      map-result: <sp-status>;
+    function "nn_init",
+      map-result: <nn-status>;
 
-    function "sp_recv",
+    function "nn_recv",
       map-argument: { 2 => <C-buffer-offset> },
-      map-result: <sp-status>;
+      map-result: <nn-status>;
 
-    function "sp_recvmsg",
-      map-result: <sp-status>;
+    function "nn_recvmsg",
+      map-result: <nn-status>;
 
-    function "sp_send",
+    function "nn_send",
       map-argument: { 2 => <C-buffer-offset> },
-      map-result: <sp-status>;
+      map-result: <nn-status>;
 
-    function "sp_sendmsg",
-      map-result: <sp-status>;
+    function "nn_sendmsg",
+      map-result: <nn-status>;
 
-    function "sp_setsockopt",
-      map-result: <sp-status>;
+    function "nn_setsockopt",
+      map-result: <nn-status>;
 
-    function "sp_shutdown",
-      map-result: <sp-status>;
+    function "nn_shutdown",
+      map-result: <nn-status>;
 
-    function "sp_socket",
-      map-result: <sp-status>;
+    function "nn_socket",
+      map-result: <nn-status>;
 
-    function "sp_term",
-      map-result: <sp-status>;
+    function "nn_term",
+      map-result: <nn-status>;
 
 end interface;
 
@@ -143,21 +143,21 @@ define function buffer-offset
            (the-buffer, primitive-repeated-slot-offset(the-buffer))))
 end function;
 
-define inline function sp-send (socket :: <integer>, data :: <buffer>, flags :: <integer>) => (res :: <integer>)
-  %sp-send(socket, buffer-offset(data, 0), data.size, flags)
+define inline function nn-send (socket :: <integer>, data :: <buffer>, flags :: <integer>) => (res :: <integer>)
+  %nn-send(socket, buffer-offset(data, 0), data.size, flags)
 end;
 
-define inline function sp-recv (socket :: <integer>, data :: <buffer>, flags :: <integer>) => (res :: <integer>)
-  %sp-recv(socket, buffer-offset(data, 0), data.size, flags);
+define inline function nn-recv (socket :: <integer>, data :: <buffer>, flags :: <integer>) => (res :: <integer>)
+  %nn-recv(socket, buffer-offset(data, 0), data.size, flags);
 end;
 
-define inline method sp-setsockopt (socket :: <integer>, level :: <integer>, option :: <integer>, value :: <integer>)
+define inline method nn-setsockopt (socket :: <integer>, level :: <integer>, option :: <integer>, value :: <integer>)
   with-stack-structure (int :: <C-int*>)
     pointer-value(int) := value;
-    %sp-setsockopt(socket, level, option, int, size-of(<C-int*>));
+    %nn-setsockopt(socket, level, option, int, size-of(<C-int*>));
   end;
 end;
 
-define inline method sp-setsockopt (socket :: <integer>, level :: <integer>, option :: <integer>, data :: <byte-string>)
-  %sp-setsockopt(socket, level, option, as(<c-string>, data), data.size);
+define inline method nn-setsockopt (socket :: <integer>, level :: <integer>, option :: <integer>, data :: <byte-string>)
+  %nn-setsockopt(socket, level, option, as(<c-string>, data), data.size);
 end;
