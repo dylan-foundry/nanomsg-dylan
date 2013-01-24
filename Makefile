@@ -15,7 +15,7 @@ test: nanomsg.dylan
 	_build/bin/nanomsg-test-suite-app
 
 clean:
-	rm nanomsg.dylan
+	rm -f nanomsg.dylan
 	rm -rf _build/bin/nanomsg*
 	rm -rf _build/lib/*nanomsg*
 	rm -rf _build/build/nanomsg*
