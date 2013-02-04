@@ -91,6 +91,8 @@ define module nanomsg
     $NN-RECONNECT-IVL,
     $NN-RECONNECT-IVL-MAX,
     $NN-SNDPRIO,
+    $NN-SNDFD,
+    $NN-RCVFD,
     $NN-SUBSCRIBE,
     $NN-UNSUBSCRIBE,
     $NN-RESEND-IVL,
