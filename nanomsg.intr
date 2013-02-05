@@ -99,9 +99,6 @@ define interface
     function "nn_getsockopt",
       map-result: <nn-status>;
 
-    function "nn_init",
-      map-result: <nn-status>;
-
     function "nn_recv",
       map-argument: { 2 => <C-buffer-offset> },
       map-result: <nn-status>;

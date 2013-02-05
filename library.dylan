@@ -21,7 +21,6 @@ define module nanomsg
     nn-version,
     nn-errno,
     nn-strerror,
-    nn-init,
     nn-term,
     nn-socket,
     nn-close,

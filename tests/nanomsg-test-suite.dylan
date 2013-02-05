@@ -4,7 +4,6 @@ author: Bruce Mitchener, Jr.
 copyright: See LICENSE file in this distribution.
 
 define suite nanomsg-test-suite ()
-  test init-nanomsg-test;
   test open-close-socket-nanomsg-test;
   test bind-close-socket-nanomsg-test;
   test send-receive-nanomsg-test;
@@ -14,31 +13,15 @@ define suite nanomsg-test-suite ()
   test pubsub-nanomsg-test;
 end suite;
 
-define test init-nanomsg-test ()
-  check-equal("nn-init succeeds",
-              nn-init(), 0);
-  check-equal("nn-term succeeds",
-              nn-term(), 0);
-end test init-nanomsg-test;
-
 define test open-close-socket-nanomsg-test ()
-  check-equal("nn-init succeeds",
-              nn-init(), 0);
-
   let a = nn-socket($AF-SP, $NN-PAIR);
   check-equal("nn-socket succeeds",
               nn-errno(), 0);
   check-equal("nn-close(a) succeeds",
               nn-close(a), 0);
-
-  check-equal("nn-term succeeds",
-              nn-term(), 0);
 end test open-close-socket-nanomsg-test;
 
 define test bind-close-socket-nanomsg-test ()
-  check-equal("nn-init succeeds",
-              nn-init(), 0);
-
   let a = nn-socket($AF-SP, $NN-PAIR);
   check-equal("nn-socket succeeds",
               nn-errno(), 0);
@@ -48,15 +31,9 @@ define test bind-close-socket-nanomsg-test ()
 
   check-equal("nn-close(a) succeeds",
               nn-close(a), 0);
-
-  check-equal("nn-term succeeds",
-              nn-term(), 0);
 end test bind-close-socket-nanomsg-test;
 
 define test send-receive-nanomsg-test ()
-  check-equal("nn-init succeeds",
-              nn-init(), 0);
-
   // Setup
   let a = nn-socket($AF-SP, $NN-PAIR);
   let b = nn-socket($AF-SP, $NN-PAIR);
@@ -82,15 +59,9 @@ define test send-receive-nanomsg-test ()
               nn-close(a), 0);
   check-equal("nn-close(b) succeeds",
               nn-close(b), 0);
-
-  check-equal("nn-term succeeds",
-              nn-term(), 0);
 end test send-receive-nanomsg-test;
 
 define test req-rep-nanomsg-test ()
-  check-equal("nn-init succeeds",
-              nn-init(), 0);
-
   let rep = nn-socket($AF-SP, $NN-REP);
   let req1 = nn-socket($AF-SP, $NN-REQ);
   let req2 = nn-socket($AF-SP, $NN-REQ);
@@ -132,15 +103,9 @@ define test req-rep-nanomsg-test ()
               nn-close(req1), 0);
   check-equal("nn-close(req2) succeeds",
               nn-close(req2), 0);
-
-  check-equal("nn-term succeeds",
-              nn-term(), 0);
 end test req-rep-nanomsg-test;
 
 define test fan-in-nanomsg-test ()
-  check-equal("nn-init succeeds",
-              nn-init(), 0);
-
   let sink = nn-socket($AF-SP, $NN-SINK);
   let source1 = nn-socket($AF-SP, $NN-SOURCE);
   let source2 = nn-socket($AF-SP, $NN-SOURCE);
@@ -172,15 +137,9 @@ define test fan-in-nanomsg-test ()
               nn-close(source1), 0);
   check-equal("nn-close(source2) succeeds",
               nn-close(source2), 0);
-
-  check-equal("nn-term succeeds",
-              nn-term(), 0);
 end test fan-in-nanomsg-test;
 
 define test fan-out-nanomsg-test ()
-  check-equal("nn-init succeeds",
-              nn-init(), 0);
-
   let push = nn-socket($AF-SP, $NN-PUSH);
   let pull1 = nn-socket($AF-SP, $NN-PULL);
   let pull2 = nn-socket($AF-SP, $NN-PULL);
@@ -212,15 +171,9 @@ define test fan-out-nanomsg-test ()
               nn-close(pull1), 0);
   check-equal("nn-close(pull2) succeeds",
               nn-close(pull2), 0);
-
-  check-equal("nn-term succeeds",
-              nn-term(), 0);
 end test fan-out-nanomsg-test;
 
 define test pubsub-nanomsg-test ()
-  check-equal("nn-init succeeds",
-              nn-init(), 0);
-
   let pub = nn-socket($AF-SP, $NN-PUB);
   let sub1 = nn-socket($AF-SP, $NN-SUB);
   check-equal("sub1 subscribes",
@@ -256,7 +209,4 @@ define test pubsub-nanomsg-test ()
               nn-close(sub1), 0);
   check-equal("nn-close(sub2) succeeds",
               nn-close(sub2), 0);
-
-  check-equal("nn-term succeeds",
-              nn-term(), 0);
 end test pubsub-nanomsg-test;
