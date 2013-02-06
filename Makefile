@@ -5,7 +5,7 @@ all: build
 .PHONY: build test
 
 nanomsg.dylan: nanomsg.intr
-	$(MELANGE) -Tc-ffi -Iext/nanomsg/include nanomsg.intr nanomsg.dylan
+	$(MELANGE) -Tc-ffi nanomsg.intr nanomsg.dylan
 
 build: nanomsg.dylan
 	dylan-compiler -build nanomsg
