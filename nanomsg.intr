@@ -68,7 +68,9 @@ define interface
       "NN_REQREP_ID",
       "NN_FANIN_ID",
       "NN_FANOUT_ID",
-      "NN_SURVEY_ID"
+      "NN_SURVEY_ID",
+      "struct nn_cmsghdr",
+      "nn_cmsg_nexthdr"
     },
 
     equate: {"char *" => <c-string>},
