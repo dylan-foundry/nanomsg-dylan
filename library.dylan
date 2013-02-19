@@ -81,6 +81,7 @@ define module nanomsg
     $NN-PULL,
     $NN-SURVEYOR,
     $NN-RESPONDENT,
+    $NN-BUS,
     $NN-SOL-SOCKET,
     $NN-LINGER,
     $NN-SNDBUF,

@@ -36,6 +36,7 @@ define interface
       "nanomsg/fanout.h",
       "nanomsg/ipc.h",
       "nanomsg/pubsub.h",
+      "nanomsg/bus.h",
       "nanomsg/tcp.h"
     },
 
@@ -69,6 +70,7 @@ define interface
       "NN_FANIN_ID",
       "NN_FANOUT_ID",
       "NN_SURVEY_ID",
+      "NN_BUS_ID",
       "struct nn_cmsghdr",
       "nn_cmsg_nexthdr"
     },
