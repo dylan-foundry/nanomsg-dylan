@@ -93,6 +93,7 @@ define module nanomsg
     $NN-SNDPRIO,
     $NN-SNDFD,
     $NN-RCVFD,
+    $NN-ERRFD,
     $NN-SUBSCRIBE,
     $NN-UNSUBSCRIBE,
     $NN-RESEND-IVL,
