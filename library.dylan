@@ -34,7 +34,8 @@ define module nanomsg
     nn-send,
     nn-sendmsg,
     nn-recv,
-    nn-recvmsg;
+    nn-recvmsg,
+    nn-device;
 
   export
     <nn-error>,
