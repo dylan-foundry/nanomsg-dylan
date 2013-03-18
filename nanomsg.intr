@@ -83,11 +83,6 @@ define interface
       "nn_setsockopt" => %nn-setsockopt
     };
 
-    function "nn_version",
-      output-argument: 1,
-      output-argument: 2,
-      output-argument: 3;
-
     function "nn_bind",
       map-result: <nn-status>;
 

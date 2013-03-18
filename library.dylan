@@ -18,7 +18,6 @@ define module nanomsg
   use streams;
 
   export
-    nn-version,
     nn-errno,
     nn-strerror,
     nn-term,
