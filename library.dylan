@@ -67,6 +67,8 @@ define module nanomsg
     $ETIMEDOUT,
     $AF-SP,
     $AF-SP-RAW,
+    $NN-DOMAIN,
+    $NN-PROTOCOL,
     $NN-SOCKADDR-MAX,
     $NN-PAIR,
     $NN-INPROC,
