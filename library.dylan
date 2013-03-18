@@ -20,6 +20,7 @@ define module nanomsg
   export
     nn-errno,
     nn-strerror,
+    nn-symbol,
     nn-term,
     nn-socket,
     nn-close,
