@@ -64,13 +64,13 @@ define interface
 
     exclude: {
       "NN_HAUSNUMERO",
-      "NN_PAIR_ID",
-      "NN_PUBSUB_ID",
-      "NN_REQREP_ID",
-      "NN_FANIN_ID",
-      "NN_FANOUT_ID",
-      "NN_SURVEY_ID",
-      "NN_BUS_ID",
+      "NN_PROTO_PAIR",
+      "NN_PROTO_PUBSUB",
+      "NN_PROTO_REQREP",
+      "NN_PROTO_FANIN",
+      "NN_PROTO_FANOUT",
+      "NN_PROTO_SURVEY",
+      "NN_PROTO_BUS",
       "struct nn_cmsghdr",
       "nn_cmsg_nexthdr"
     },

@@ -177,10 +177,10 @@ define test pubsub-nanomsg-test ()
   let pub = nn-socket($AF-SP, $NN-PUB);
   let sub1 = nn-socket($AF-SP, $NN-SUB);
   check-equal("sub1 subscribes",
-              nn-setsockopt(sub1, $NN-SUB, $NN-SUBSCRIBE, ""), 0);
+              nn-setsockopt(sub1, $NN-SUB, $NN-SUB-SUBSCRIBE, ""), 0);
   let sub2 = nn-socket($AF-SP, $NN-SUB);
   check-equal("sub2 subscribes",
-              nn-setsockopt(sub2, $NN-SUB, $NN-SUBSCRIBE, ""), 0);
+              nn-setsockopt(sub2, $NN-SUB, $NN-SUB-SUBSCRIBE, ""), 0);
 
   // Setup
   check-no-condition("nn-bind(pub) succeeds",

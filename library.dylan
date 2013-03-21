@@ -96,9 +96,9 @@ define module nanomsg
     $NN-SNDPRIO,
     $NN-SNDFD,
     $NN-RCVFD,
-    $NN-SUBSCRIBE,
-    $NN-UNSUBSCRIBE,
-    $NN-RESEND-IVL,
-    $NN-DEADLINE,
+    $NN-SUB-SUBSCRIBE,
+    $NN-SUB-UNSUBSCRIBE,
+    $NN-REQ-RESEND-IVL,
+    $NN-SURVEYOR-DEADLINE,
     $NN-DONTWAIT;
 end module;
