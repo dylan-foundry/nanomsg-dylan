@@ -100,5 +100,6 @@ define module nanomsg
     $NN-SUB-UNSUBSCRIBE,
     $NN-REQ-RESEND-IVL,
     $NN-SURVEYOR-DEADLINE,
-    $NN-DONTWAIT;
+    $NN-DONTWAIT,
+    $NN-TCP-NODELAY;
 end module;
