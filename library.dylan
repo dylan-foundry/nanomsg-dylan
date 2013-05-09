@@ -32,9 +32,9 @@ define module nanomsg
     nn-allocmsg,
     nn-freemsg,
     nn-send,
-    nn-sendmsg,
+    // nn-sendmsg,
     nn-recv,
-    nn-recvmsg,
+    // nn-recvmsg,
     nn-device;
 
   export
@@ -67,6 +67,7 @@ define module nanomsg
     $ETIMEDOUT,
     $AF-SP,
     $AF-SP-RAW,
+    $NN-MSG,
     $NN-DOMAIN,
     $NN-PROTOCOL,
     $NN-SOCKADDR-MAX,

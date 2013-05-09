@@ -75,6 +75,14 @@ define interface
       "nn_cmsg_nexthdr"
     },
 
+    // Ignore zerocopy stuff for now.
+    exclude: {
+      "nn_recvmsg",
+      "nn_sendmsg",
+      "struct nn_iovec",
+      "struct nn_msghdr"
+    },
+
     equate: {"char *" => <c-string>},
 
     rename: {
