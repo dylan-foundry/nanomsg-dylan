@@ -100,5 +100,6 @@ define module nanomsg
     $NN-REQ-RESEND-IVL,
     $NN-SURVEYOR-DEADLINE,
     $NN-DONTWAIT,
-    $NN-TCP-NODELAY;
+    $NN-TCP-NODELAY,
+    $NN-IPV4ONLY;
 end module;
