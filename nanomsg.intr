@@ -28,12 +28,11 @@ end;
 define interface
   #include {
       "nanomsg/nn.h",
-      "nanomsg/fanin.h",
       "nanomsg/inproc.h",
       "nanomsg/pair.h",
+      "nanomsg/pipeline.h",
       "nanomsg/reqrep.h",
       "nanomsg/survey.h",
-      "nanomsg/fanout.h",
       "nanomsg/ipc.h",
       "nanomsg/pubsub.h",
       "nanomsg/bus.h",
@@ -65,10 +64,9 @@ define interface
     exclude: {
       "NN_HAUSNUMERO",
       "NN_PROTO_PAIR",
+      "NN_PROTO_PIPELINE",
       "NN_PROTO_PUBSUB",
       "NN_PROTO_REQREP",
-      "NN_PROTO_FANIN",
-      "NN_PROTO_FANOUT",
       "NN_PROTO_SURVEY",
       "NN_PROTO_BUS",
       "struct nn_cmsghdr",

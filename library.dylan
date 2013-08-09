@@ -79,8 +79,6 @@ define module nanomsg
     $NN-SUB,
     $NN-REP,
     $NN-REQ,
-    $NN-SINK,
-    $NN-SOURCE,
     $NN-PUSH,
     $NN-PULL,
     $NN-SURVEYOR,
