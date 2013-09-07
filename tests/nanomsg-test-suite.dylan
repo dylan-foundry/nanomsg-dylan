@@ -8,8 +8,8 @@ define suite nanomsg-test-suite ()
   test bind-close-socket-nanomsg-test;
   test send-receive-nanomsg-test;
   test req-rep-nanomsg-test;
-  test fan-in-nanomsg-test;
-  test fan-out-nanomsg-test;
+  test pipeline-fan-in-nanomsg-test;
+  test pipeline-fan-out-nanomsg-test;
   test pubsub-nanomsg-test;
 end suite;
 
@@ -105,41 +105,41 @@ define test req-rep-nanomsg-test ()
               nn-close(req2), 0);
 end test req-rep-nanomsg-test;
 
-define test fan-in-nanomsg-test ()
-  let sink = nn-socket($AF-SP, $NN-SINK);
-  let source1 = nn-socket($AF-SP, $NN-SOURCE);
-  let source2 = nn-socket($AF-SP, $NN-SOURCE);
+define test pipeline-fan-in-nanomsg-test ()
+  let pull = nn-socket($AF-SP, $NN-PULL);
+  let push1 = nn-socket($AF-SP, $NN-PUSH);
+  let push2 = nn-socket($AF-SP, $NN-PUSH);
 
   // Setup
-  check-no-condition("nn-bind(sink) succeeds",
-                     nn-bind(sink, "inproc://a"));
-  check-no-condition("nn-connect(source1) succeeds",
-                     nn-connect(source1, "inproc://a"));
-  check-no-condition("nn-connect(source2) succeeds",
-                     nn-connect(source2, "inproc://a"));
+  check-no-condition("nn-bind(pull) succeeds",
+                     nn-bind(pull, "inproc://a"));
+  check-no-condition("nn-connect(push1) succeeds",
+                     nn-connect(push1, "inproc://a"));
+  check-no-condition("nn-connect(push2) succeeds",
+                     nn-connect(push2, "inproc://a"));
 
   let data = make(<buffer>, size: 3);
 
   // Test fan-in
-  check-equal("nn-send(source1) is 3",
-              nn-send(source1, as(<buffer>, "ABC"), 0), 3);
-  check-equal("nn-send(source2) is 3",
-              nn-send(source2, as(<buffer>, "DEF"), 0), 3);
-  check-equal("nn-recv(sink) is 3",
-              nn-recv(sink, data, 0), 3);
-  check-equal("nn-recv(sink) is 3",
-              nn-recv(sink, data, 0), 3);
+  check-equal("nn-send(push1) is 3",
+              nn-send(push1, as(<buffer>, "ABC"), 0), 3);
+  check-equal("nn-send(push2) is 3",
+              nn-send(push2, as(<buffer>, "DEF"), 0), 3);
+  check-equal("nn-recv(pull) is 3",
+              nn-recv(pull, data, 0), 3);
+  check-equal("nn-recv(pull) is 3",
+              nn-recv(pull, data, 0), 3);
 
   // Tear down
-  check-equal("nn-close(sink) succeeds",
-              nn-close(sink), 0);
-  check-equal("nn-close(source1) succeeds",
-              nn-close(source1), 0);
-  check-equal("nn-close(source2) succeeds",
-              nn-close(source2), 0);
-end test fan-in-nanomsg-test;
+  check-equal("nn-close(pull) succeeds",
+              nn-close(pull), 0);
+  check-equal("nn-close(push1) succeeds",
+              nn-close(push1), 0);
+  check-equal("nn-close(push2) succeeds",
+              nn-close(push2), 0);
+end test pipeline-fan-in-nanomsg-test;
 
-define test fan-out-nanomsg-test ()
+define test pipeline-fan-out-nanomsg-test ()
   let push = nn-socket($AF-SP, $NN-PUSH);
   let pull1 = nn-socket($AF-SP, $NN-PULL);
   let pull2 = nn-socket($AF-SP, $NN-PULL);
@@ -171,7 +171,7 @@ define test fan-out-nanomsg-test ()
               nn-close(pull1), 0);
   check-equal("nn-close(pull2) succeeds",
               nn-close(pull2), 0);
-end test fan-out-nanomsg-test;
+end test pipeline-fan-out-nanomsg-test;
 
 define test pubsub-nanomsg-test ()
   let pub = nn-socket($AF-SP, $NN-PUB);
