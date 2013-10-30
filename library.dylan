@@ -43,10 +43,9 @@ define module nanomsg
     nn-error-message;
 
   export
-    $NN-VERSION-MAJOR,
-    $NN-VERSION-MINOR,
-    $NN-VERSION-PATCH,
-    $NN-VERSION,
+    $NN-VERSION-AGE,
+    $NN-VERSION-CURRENT,
+    $NN-VERSION-REVISION,
     $EADDRINUSE,
     $EADDRNOTAVAIL,
     $EAFNOSUPPORT,
