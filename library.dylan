@@ -46,6 +46,7 @@ define module nanomsg
     $NN-VERSION-AGE,
     $NN-VERSION-CURRENT,
     $NN-VERSION-REVISION,
+    $EACCESS,
     $EADDRINUSE,
     $EADDRNOTAVAIL,
     $EAFNOSUPPORT,
