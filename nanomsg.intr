@@ -70,7 +70,7 @@ define interface
       "NN_PROTO_SURVEY",
       "NN_PROTO_BUS",
       "struct nn_cmsghdr",
-      "nn_cmsg_nexthdr"
+      "nn_cmsg_nexthdr_"
     },
 
     // Ignore zerocopy stuff for now.
