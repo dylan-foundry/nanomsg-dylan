@@ -47,7 +47,7 @@ define test send-receive-nanomsg-test ()
 
   // Send / receive some data.
   check-equal("nn-send returns 3",
-              nn-send(b, as(<buffer>, "ABC"), 0), 3);
+              nn-send(b, "ABC", 0), 3);
   check-equal("nn-recv returns 3",
               nn-recv(a, data, 0), 3);
 

@@ -136,8 +136,10 @@ end interface;
 // to an offset and returning the result as a <machine-word>.  This is
 // necessary for passing <buffer> contents across the FFI.
 
+define constant <byte-vector-like> = type-union(<buffer>, type-union(<byte-vector>, <byte-string>));
+
 define function buffer-offset
-    (the-buffer :: <buffer>, data-offset :: <integer>)
+    (the-buffer, data-offset :: <integer>)
  => (result-offset :: <machine-word>)
   u%+(data-offset,
       primitive-wrap-machine-word
@@ -145,11 +147,11 @@ define function buffer-offset
            (the-buffer, primitive-repeated-slot-offset(the-buffer))))
 end function;
 
-define inline function nn-send (socket :: <integer>, data :: <buffer>, flags :: <integer>) => (res :: <integer>)
+define inline function nn-send (socket :: <integer>, data :: <byte-vector-like>, flags :: <integer>) => (res :: <integer>)
   %nn-send(socket, buffer-offset(data, 0), data.size, flags)
 end;
 
-define inline function nn-recv (socket :: <integer>, data :: <buffer>, flags :: <integer>) => (res :: <integer>)
+define inline function nn-recv (socket :: <integer>, data :: <byte-vector-like>, flags :: <integer>) => (res :: <integer>)
   %nn-recv(socket, buffer-offset(data, 0), data.size, flags);
 end;
 
