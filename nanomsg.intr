@@ -138,21 +138,12 @@ end interface;
 
 define constant <byte-vector-like> = type-union(<buffer>, type-union(<byte-vector>, <byte-string>));
 
-define function buffer-offset
-    (the-buffer, data-offset :: <integer>)
- => (result-offset :: <machine-word>)
-  u%+(data-offset,
-      primitive-wrap-machine-word
-        (primitive-repeated-slot-as-raw
-           (the-buffer, primitive-repeated-slot-offset(the-buffer))))
-end function;
-
 define inline function nn-send (socket :: <integer>, data :: <byte-vector-like>, flags :: <integer>) => (res :: <integer>)
-  %nn-send(socket, buffer-offset(data, 0), data.size, flags)
+  %nn-send(socket, byte-storage-address(data), data.size, flags)
 end;
 
 define inline function nn-recv (socket :: <integer>, data :: <byte-vector-like>, flags :: <integer>) => (res :: <integer>)
-  %nn-recv(socket, buffer-offset(data, 0), data.size, flags);
+  %nn-recv(socket, byte-storage-address(data), data.size, flags);
 end;
 
 define inline method nn-setsockopt (socket :: <integer>, level :: <integer>, option :: <integer>, value :: <integer>)
