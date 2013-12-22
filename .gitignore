@@ -1,2 +1,5 @@
+*.hdp
+*.iml
 _build
+.idea
 nanomsg.dylan
