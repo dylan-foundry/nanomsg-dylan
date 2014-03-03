@@ -70,7 +70,11 @@ define interface
       "NN_PROTO_SURVEY",
       "NN_PROTO_BUS",
       "struct nn_cmsghdr",
-      "nn_cmsg_nexthdr_"
+      "nn_cmsg_nexthdr_",
+      "struct nn_pollfd",
+      "nn_poll",
+      "NN_POLLIN",
+      "NN_POLLOUT"
     },
 
     // Ignore zerocopy stuff for now.
@@ -79,6 +83,33 @@ define interface
       "nn_sendmsg",
       "struct nn_iovec",
       "struct nn_msghdr"
+    },
+
+    // Ignore nn_symbol_info stuff for now.
+    exclude: {
+      "nn_symbol_info",
+      "struct nn_symbol_properties",
+      "NN_NS_NAMESPACE",
+      "NN_NS_VERSION",
+      "NN_NS_DOMAIN",
+      "NN_NS_TRANSPORT",
+      "NN_NS_PROTOCOL",
+      "NN_NS_OPTION_LEVEL",
+      "NN_NS_SOCKET_OPTION",
+      "NN_NS_TRANSPORT_OPTION",
+      "NN_NS_OPTION_TYPE",
+      "NN_NS_OPTION_UNIT",
+      "NN_NS_FLAG",
+      "NN_NS_ERROR",
+      "NN_NS_LIMIT",
+      "NN_TYPE_NONE",
+      "NN_TYPE_INT",
+      "NN_TYPE_STR",
+      "NN_UNIT_NONE",
+      "NN_UNIT_BYTES",
+      "NN_UNIT_MILLISECONDS",
+      "NN_UNIT_PRIORITY",
+      "NN_UNIT_BOOLEAN"
     },
 
     equate: {"char *" => <c-string>},
