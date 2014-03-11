@@ -3,16 +3,6 @@ synopsis: Test suite for the nanomsg library.
 author: Bruce Mitchener, Jr.
 copyright: See LICENSE file in this distribution.
 
-define suite nanomsg-test-suite ()
-  test open-close-socket-nanomsg-test;
-  test bind-close-socket-nanomsg-test;
-  test send-receive-nanomsg-test;
-  test req-rep-nanomsg-test;
-  test pipeline-fan-in-nanomsg-test;
-  test pipeline-fan-out-nanomsg-test;
-  test pubsub-nanomsg-test;
-end suite;
-
 define test open-close-socket-nanomsg-test ()
   let a = nn-socket($AF-SP, $NN-PAIR);
   check-equal("nn-socket succeeds",
@@ -210,3 +200,13 @@ define test pubsub-nanomsg-test ()
   check-equal("nn-close(sub2) succeeds",
               nn-close(sub2), 0);
 end test pubsub-nanomsg-test;
+
+define suite nanomsg-test-suite ()
+  test open-close-socket-nanomsg-test;
+  test bind-close-socket-nanomsg-test;
+  test send-receive-nanomsg-test;
+  test req-rep-nanomsg-test;
+  test pipeline-fan-in-nanomsg-test;
+  test pipeline-fan-out-nanomsg-test;
+  test pubsub-nanomsg-test;
+end suite;
